@@ -116,6 +116,7 @@
 	gef
 	unzip
 	gnumake
+	home-manager
 	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       		pkgs.buildFHSEnv (base // {
       		name = "fhs";

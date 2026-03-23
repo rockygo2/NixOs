@@ -8,9 +8,19 @@
     # This needs to actually be set to your username
     username = "rockygo2";
     homeDirectory = "/home/rockygo2";
-
+    
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build.  Don't ask questions.
     stateVersion = "23.11";
   };
+  programs.bash = {
+      enable = true;
+
+      initExtra = ''
+	if [[ -n "$FHS" ]]; then
+		export PS1="\n(FHS) ''${PS1:2}"
+	fi
+      '';
+    };
+
 }
