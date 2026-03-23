@@ -108,6 +108,36 @@
 	git
 	python3
         gh
+	signal-desktop
+	ghidra
+	gcc
+	john
+	seclists
+	gef
+	unzip
+	gnumake
+	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
+      		pkgs.buildFHSEnv (base // {
+      		name = "fhs";
+      		targetPkgs = pkgs:
+        	# pkgs.buildFHSEnv provides only a minimal FHS environment,
+        	# lacking many basic packages needed by most software.
+        	# Therefore, we need to add them manually.
+
+        	# pkgs.appimageTools provides basic packages required by most software.
+        	(base.targetPkgs pkgs) ++ (with pkgs; [
+          		pkg-config
+          		ncurses
+          	# Feel free to add more packages here if needed.
+        	]
+      	);
+        profile = ''
+    		export FHS=1
+    		export PS1="(FHS) $PS1"
+  	'';
+     	runScript = "bash -i";
+      	extraOutputsToInstall = ["dev"];
+    }))
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
 	  ];
