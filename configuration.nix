@@ -107,7 +107,7 @@
 	firefox
 	git
 	python3
-        gh
+	gh
 	signal-desktop
 	ghidra
 	gcc
@@ -117,6 +117,10 @@
 	unzip
 	gnumake
 	home-manager
+	obsidian
+	vim
+	vscode
+	discord
 	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       		pkgs.buildFHSEnv (base // {
       		name = "fhs";
@@ -138,8 +142,7 @@
   	'';
      	runScript = "bash -i";
       	extraOutputsToInstall = ["dev"];
-    }))
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    	}))
   #  wget
 	  ];
   # Some programs need SUID wrappers, can be configured further or are

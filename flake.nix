@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nur.url = "github:nix-community/NUR";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -10,12 +11,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
+      overlays = [ nur.overlays.default ];
       pkgs = import nixpkgs { 
         inherit system; 
+        inherit overlays; 
         config = { allowUnfree = true; };
       };
     in {
