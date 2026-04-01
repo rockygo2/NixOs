@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nur.url = "github:nix-community/NUR";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -33,9 +34,11 @@
       homeConfigurations = {
         myprofile = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./home.nix ];
+          modules = [ ./home.nix
+          ];
         };
       };
+
     };
 
 } 

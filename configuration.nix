@@ -2,14 +2,59 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.sops-nix.nixosModules.sops
+  ];
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  
+  sops.age.keyFile = "/home/rockygo2/.config/sops/age/keys.txt";
+  sops.secrets.example-key = { };
+  
+  users.groups.secret_key_service = {};
 
+  # Create a group for shared access
+  users.groups.secretusers = {
+    members = [ "rockygo2" "secret_key_service" ];
+  };
+
+  # Define the service user
+  users.users.secret_key_service = {
+    home = "/var/lib/secret_key_service";
+    createHome = true;
+    isSystemUser = true;
+    group = "secret_key_service";  # primary group
+    extraGroups = [ "secretusers" ]; # secondary group for shared access
+  };
+
+  # Configure the secret with multiple owners
+  sops.secrets."myservice/my_subdir/my_secret" = {
+    owner = "secret_key_service";  # primary owner
+    group = "secretusers";          # allows rockygo2 as well
+  };
+
+  # Systemd service using the secret
+  systemd.services."secret_key_service" = {
+    script = ''
+        echo "
+        Hey bro! I'm a service, and imma send this secure password:
+        $(sops -d ${config.sops.secrets."myservice/my_subdir/my_secret".path})
+        located in:
+        ${config.sops.secrets."myservice/my_subdir/my_secret".path}
+        to database and hack the mainframe
+        " > /var/lib/secret_key_service/testfile
+      '';
+    serviceConfig = {
+      User = "secret_key_service";
+      WorkingDirectory = "/var/lib/secret_key_service";
+    };
+  };
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -121,6 +166,16 @@
 	vim
 	vscode
 	discord
+	pwninit
+ 	pwntools
+	sops
+	tmux
+  file
+  patchelf
+	one_gadget
+  (writeShellScriptBin "gdb" ''
+    exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
+  '')
 	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       		pkgs.buildFHSEnv (base // {
       		name = "fhs";
@@ -167,6 +222,7 @@
   # Aliases  
   environment.shellAliases = {
   	ll = "ls -l";
+    pwninit = "pwninit --template-path ~/nix-config/templates/pwninit-template.py --template-bin-name e";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

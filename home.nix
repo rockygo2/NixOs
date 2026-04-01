@@ -2,7 +2,12 @@
 {
   home = {
     packages = with pkgs; [
-	hello
+	    hello
+      (pkgs.python314.withPackages (ps: [
+        ps.numpy
+        ps.requests
+        ps.pwntools
+      ]))
     ];
 
     username = "rockygo2";
@@ -25,21 +30,20 @@
     };
   };
 
-programs.firefox = {
-  enable = true;
-  profiles.default = {
-    id = 0;
-    settings = {
-      "browser.startup.homepage" = "https://duckduckgo.com";
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      id = 0;
+      settings = {
+        "browser.startup.homepage" = "https://duckduckgo.com";
+      };
+      
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        ublock-origin
+        darkreader
+      ];
     };
-    
-    # This MUST be 'extensions.packages' (note the .packages)
-    extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-      ublock-origin
-      darkreader
-    ];
   };
-};
 
   programs.bash = {
       enable = true;
