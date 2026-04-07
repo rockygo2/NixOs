@@ -6,6 +6,10 @@ home:
 os:
 	nh os switch
 
+all:
+	make os
+	make home
+
 .PHONY: clean
 clean:
 	nix-collect-garbage -d

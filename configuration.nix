@@ -173,6 +173,8 @@
   file
   patchelf
 	one_gadget
+  thunderbird
+	remmina
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
