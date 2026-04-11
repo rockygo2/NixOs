@@ -6,7 +6,7 @@ from pwn import *
 
 context.terminal = ["konsole", "-e"]
 context.binary = {bin_name}
-
+context.gdb_binary = "gef"
 
 def conn():
     if args.LOCAL:

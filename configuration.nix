@@ -175,9 +175,6 @@
 	one_gadget
   thunderbird
 	remmina
-  (writeShellScriptBin "gdb" ''
-    exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
-  '')
 	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       		pkgs.buildFHSEnv (base // {
       		name = "fhs";
