@@ -59,7 +59,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 5;
- 
+  
+  virtualisation.docker.enable = true;
+
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -134,7 +137,7 @@
   users.users.rockygo2 = {
     isNormalUser = true;
     description = "Maurice Ibrahim";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -175,6 +178,13 @@
 	one_gadget
   thunderbird
 	remmina
+  nmap
+  wireshark
+  qemu
+  docker
+  (writeShellScriptBin "gdb" ''
+    exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
+  '')
 	(let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       		pkgs.buildFHSEnv (base // {
       		name = "fhs";
