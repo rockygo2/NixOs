@@ -25,9 +25,7 @@
 
           modules = [
             ./configuration.nix
-            ./hardware_configs/hardware_configuration_laptop.nix
-
-            { networking.hostName = "laptop"; }
+            ./hosts/laptop.nix
           ];
         };
 
@@ -37,9 +35,7 @@
 
           modules = [
             ./configuration.nix
-            ./hardware_configs/hardware_configuration_desktop.nix
-
-            { networking.hostName = "desktop"; }
+            ./hosts/desktop.nix
           ];
         };
 

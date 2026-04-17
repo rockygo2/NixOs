@@ -1,15 +1,22 @@
-.PHONY: home
+OS := $(shell hostname)
+
+.PHONY: home laptop desktop os all clean
+
 home:
 	home-manager switch --flake .#myprofile
 
-.PHONY: os
+laptop:
+	nh os switch .#laptop
+
+desktop:
+	nh os switch .#desktop
+
 os:
-	nh os switch
+	nh os switch .#$(OS)
 
 all:
-	make os
-	make home
+	$(MAKE) os
+	$(MAKE) home
 
-.PHONY: clean
 clean:
 	nix-collect-garbage -d
