@@ -7,7 +7,6 @@
 {
   imports =
   [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
     inputs.sops-nix.nixosModules.sops
   ];
   sops.defaultSopsFile = ./secrets/secrets.yaml;
@@ -62,8 +61,6 @@
   
   virtualisation.docker.enable = true;
 
-
-  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

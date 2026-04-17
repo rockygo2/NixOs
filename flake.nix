@@ -1,5 +1,5 @@
 {
-  description = "My Home Manager configuration";
+  description = "My NixOS + Home Manager config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -14,31 +14,44 @@
 
   outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
     let
-      lib = nixpkgs.lib;
       system = "x86_64-linux";
       overlays = [ nur.overlays.default ];
-      pkgs = import nixpkgs { 
-        inherit system; 
-        inherit overlays; 
-        config = { allowUnfree = true; };
-      };
     in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        inherit system;
-        modules = [
-          ./configuration.nix
-        ];
-      };
+      nixosConfigurations = {
 
-      homeConfigurations = {
-        myprofile = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home.nix
+        laptop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+
+          modules = [
+            ./configuration.nix
+            ./hardware_configs/hardware_configuration_laptop.nix
+
+            { networking.hostName = "laptop"; }
           ];
         };
+
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+
+          modules = [
+            ./configuration.nix
+            ./hardware_configs/hardware_configuration_desktop.nix
+
+            { networking.hostName = "desktop"; }
+          ];
+        };
+
       };
 
-    };
+      homeConfigurations.myprofile = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system overlays;
+          config.allowUnfree = true;
+        };
 
-} 
+        modules = [ ./home.nix ];
+      };
+    };
+}
