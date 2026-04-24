@@ -229,6 +229,7 @@
   environment.shellAliases = {
   	ll = "ls -l";
     pwninit = "pwninit --template-path ~/nix-config/templates/pwninit-template.py --template-bin-name e";
+    pin = "/home/rockygo2/tools/pin-external/pin";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
