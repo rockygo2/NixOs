@@ -9,6 +9,7 @@ context.binary = {bin_name}
 context.gdb_binary = "gef"
 
 def conn():
+    global r
     if args.LOCAL:
         r = process({proc_args})
         if args.GDB:

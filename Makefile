@@ -6,10 +6,10 @@ home:
 	home-manager switch --flake .#myprofile
 
 laptop:
-	nh os switch .#laptop
+	nh os switch .#laptop -b backup
 
 desktop:
-	nh os switch .#desktop
+	nh os switch .#desktop -b backup
 
 os:
 	nh os switch .#$(OS)
