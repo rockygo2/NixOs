@@ -188,6 +188,9 @@
   openvpn
   steam
   burpsuite
+  virtualbox
+  p7zip
+  openjdk
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -255,6 +258,8 @@
     NH_FLAKE = "/home/rockygo2/nix-config";
   };
   
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "rockygo2" ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

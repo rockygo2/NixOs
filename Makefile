@@ -18,5 +18,8 @@ all:
 	$(MAKE) os
 	$(MAKE) home
 
+garbage:
+	sudo nix-collect-garbage -d
+	
 clean:
 	nix-collect-garbage -d

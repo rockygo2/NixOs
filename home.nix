@@ -3,10 +3,14 @@
   home = {
     packages = with pkgs; [
 	    hello
-      (pkgs.python314.withPackages (ps: [
+      (pkgs.python312.withPackages (ps: [
         ps.numpy
         ps.requests
         ps.pwntools
+        ps.pycryptodome
+        ps.jpype1
+        ps.pyhidra
+        ps.lib
       ]))
     ];
 
@@ -62,10 +66,16 @@
       enable = true;
 
       initExtra = ''
-	if [[ -n "$FHS" ]]; then
-		export PS1="\n(FHS) ''${PS1:2}"
-	fi
+        if [[ -n "$FHS" ]]; then
+          export PS1="\n(FHS) ''${PS1:2}"
+        fi
+
+        startvm() {
+          VirtualBoxVM --startvm "$1"
+        }
       '';
     };
+  
+  
 }
 
