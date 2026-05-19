@@ -8,9 +8,6 @@
         ps.requests
         ps.pwntools
         ps.pycryptodome
-        ps.jpype1
-        ps.pyhidra
-        ps.lib
       ]))
     ];
 

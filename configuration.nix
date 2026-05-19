@@ -191,6 +191,8 @@
   virtualbox
   p7zip
   openjdk
+  stdenv.cc.cc.lib
+  z3
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
