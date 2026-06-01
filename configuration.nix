@@ -193,6 +193,7 @@
   openjdk
   stdenv.cc.cc.lib
   z3
+  ropr
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
