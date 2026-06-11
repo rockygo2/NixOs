@@ -3,8 +3,7 @@ OS := $(shell hostname)
 .PHONY: home laptop desktop os all clean
 
 home:
-	home-manager switch --flake .#myprofile
-
+	home-manager switch --flake .#myprofile -b backup
 laptop:
 	nh os switch .#laptop -b backup
 

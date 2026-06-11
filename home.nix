@@ -8,6 +8,12 @@
         ps.requests
         ps.pwntools
         ps.pycryptodome
+        ps.pandas
+        ps.matplotlib
+        ps.scipy
+	ps.scikit-learn
+	ps.seaborn
+  ps.virtualenv
       ]))
     ];
 

@@ -178,7 +178,6 @@
   patchelf
 	one_gadget
   thunderbird
-	remmina
   nmap
   wireshark
   qemu
@@ -194,6 +193,8 @@
   stdenv.cc.cc.lib
   z3
   ropr
+  wordlists
+  gobuster
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -209,6 +210,9 @@
         	(base.targetPkgs pkgs) ++ (with pkgs; [
           		pkg-config
           		ncurses
+              gcc
+              glibc.static
+              glibc.dev
           	# Feel free to add more packages here if needed.
         	]
       	);
@@ -244,6 +248,7 @@
   	ll = "ls -l";
     pwninit = "pwninit --template-path ~/nix-config/templates/pwninit-template.py --template-bin-name e";
     pin = "/home/rockygo2/tools/pin-external/pin";
+    grep = "grep --color=auto";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -261,6 +266,11 @@
     NH_FLAKE = "/home/rockygo2/nix-config";
   };
   
+  networking.hosts = {
+    # "10.129.13.94" = ["silentium.htb" "staging.silentium.htb"];
+  };
+
+
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "rockygo2" ];
   # This value determines the NixOS release from which the default
