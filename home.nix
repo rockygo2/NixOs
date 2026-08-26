@@ -11,9 +11,11 @@
         ps.pandas
         ps.matplotlib
         ps.scipy
-	ps.scikit-learn
-	ps.seaborn
-  ps.virtualenv
+        ps.scikit-learn
+        ps.seaborn
+        ps.virtualenv
+        ps.pandas
+        ps.torch
       ]))
     ];
 
@@ -37,6 +39,10 @@
   };
 
   xdg.configFile."mimeapps.list".force = true;
+
+  home.sessionVariables = {
+    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+  };
 
   programs.vscode = {
     enable = true;

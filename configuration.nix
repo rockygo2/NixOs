@@ -14,7 +14,6 @@
   
   sops.age.keyFile = "/home/rockygo2/.config/sops/age/keys.txt";
   sops.secrets.example-key = { };
-  
   users.groups.secret_key_service = {};
 
   # Create a group for shared access
@@ -195,6 +194,10 @@
   ropr
   wordlists
   gobuster
+  dig
+  metasploit
+  net-tools
+	nodejs_22
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -247,7 +250,6 @@
   environment.shellAliases = {
   	ll = "ls -l";
     pwninit = "pwninit --template-path ~/nix-config/templates/pwninit-template.py --template-bin-name e";
-    pin = "/home/rockygo2/tools/pin-external/pin";
     grep = "grep --color=auto";
   };
 
@@ -264,13 +266,15 @@
   # environment variables
   environment.sessionVariables = {
     NH_FLAKE = "/home/rockygo2/nix-config";
+    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
   };
   
   networking.hosts = {
     # "10.129.13.94" = ["silentium.htb" "staging.silentium.htb"];
+    "10.129.62.145" = ["connected.htb"];
   };
 
-
+  
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "rockygo2" ];
   # This value determines the NixOS release from which the default
