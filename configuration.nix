@@ -156,7 +156,6 @@
 	git
 	python3
 	gh
-	signal-desktop
 	ghidra
 	gcc
 	john
@@ -198,6 +197,8 @@
   metasploit
   net-tools
 	nodejs_22
+  devcontainer
+	inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.signal-desktop
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
