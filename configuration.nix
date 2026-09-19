@@ -198,7 +198,9 @@
   net-tools
 	nodejs_22
   devcontainer
+  socat
 	inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.signal-desktop
+  zip
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -246,7 +248,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
   # Aliases  
   environment.shellAliases = {
   	ll = "ls -l";
@@ -272,7 +274,7 @@
   
   networking.hosts = {
     # "10.129.13.94" = ["silentium.htb" "staging.silentium.htb"];
-    "10.129.62.145" = ["connected.htb"];
+    "10.13.37.12" = ["TEIGNTON.HTB" "WEB.TEIGNTON.HTB"];
   };
 
   
