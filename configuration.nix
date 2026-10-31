@@ -201,6 +201,8 @@
   socat
 	inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.signal-desktop
   zip
+  deadlock-mod-manager
+  gimp
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -274,7 +276,7 @@
   
   networking.hosts = {
     # "10.129.13.94" = ["silentium.htb" "staging.silentium.htb"];
-    "10.13.37.12" = ["TEIGNTON.HTB" "WEB.TEIGNTON.HTB"];
+    "10.129.115.190" = ["management.htb" "sso.management.htb"];
   };
 
   
