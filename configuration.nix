@@ -133,7 +133,7 @@
   users.users.rockygo2 = {
     isNormalUser = true;
     description = "Maurice Ibrahim";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -203,6 +203,8 @@
   zip
   deadlock-mod-manager
   gimp
+  minicom
+  sigrok-firmware-fx2lafw
   (writeShellScriptBin "gdb" ''
     exec ${gdb}/bin/gdb -x ${gef}/share/gef/gef.py "$@"
   '')
@@ -279,7 +281,10 @@
     "10.129.115.190" = ["management.htb" "sso.management.htb"];
   };
 
-  
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0925", ATTR{idProduct}=="3881", MODE="0666"
+  '';
+
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "rockygo2" ];
   # This value determines the NixOS release from which the default
